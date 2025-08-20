@@ -49,6 +49,9 @@ class Grid():
     def go_down(self, obj):
 
         pos_x, pos_y = obj.get_pos()
+        if self.position_is_appropriate(obj) == False:
+            pos_x, pos_y = self.fix_to_correct_position(obj)
+            obj.set_pos(pos_x, pos_y)
 
         if self.next_cell_is_empty(pos_x, pos_y, 0, self.cell_height):
             self.grid[pos_x, pos_y] = "empty"
