@@ -20,6 +20,9 @@ class Particle(pygame.sprite.Sprite):
     def get_color(self):
         return self.color
     
+    def get_material(self):
+        return self.material
+    
     def set_color(self, color):
         self.color = color
 
@@ -28,12 +31,13 @@ class Particle(pygame.sprite.Sprite):
         self.get_color()
         self.update_rect()
 
-    def __init__(self, color, width, height, pos_x, pos_y):
+    def __init__(self, color, width, height, pos_x, pos_y, material):
         super().__init__()
         self.image = pygame.Surface((width, height))
         self.image.fill(color)
         self.rect = self.image.get_rect()
         self.rect.center = (pos_x, pos_y)
+        self.material = material
 
         # mutable attributes
         self.pos_x = pos_x

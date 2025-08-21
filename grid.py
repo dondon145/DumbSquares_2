@@ -30,7 +30,10 @@ class Grid():
 
     def move_all_objects(self):
         for i in range(len(self.objects_on_screen)-1):
-            self.go_down(self.objects_on_screen[i])
+            if self.objects_on_screen[i].get_material() == "sand":
+                self.sand_go_down(self.objects_on_screen[i])
+            elif self.objects_on_screen[i].get_material() ==  "water":
+                self.water_go_down(self.objects_on_screen[i])
 
     def add_on_screen(self, obj):
         self.objects_on_screen.append(obj)
@@ -46,7 +49,7 @@ class Grid():
         else : 
             return False
 
-    def go_down(self, obj):
+    def sand_go_down(self, obj):
 
         pos_x, pos_y = obj.get_pos()
         if self.position_is_appropriate(obj) == False:
@@ -64,7 +67,51 @@ class Grid():
                 self.go_down_right(obj)
             elif num == 1:
                 self.go_down_left(obj)
+
+
+    def water_go_down(self, obj):
+
+        pos_x, pos_y = obj.get_pos()
+        if self.position_is_appropriate(obj) == False:
+            pos_x, pos_y = self.fix_to_correct_position(obj)
+            obj.set_pos(pos_x, pos_y)
+
+        if self.next_cell_is_empty(pos_x, pos_y, 0, self.cell_height):
+            self.grid[pos_x, pos_y] = "empty"
+            obj.change_pos_by(0, self.cell_height)
+            new_pos_x, new_pos_y = obj.get_pos()
+            self.grid[new_pos_x, new_pos_y] = obj
+        else:
+            num = random.randrange(0, 2)
+            if num == 0:
+                if self.next_cell_is_empty(pos_x, pos_y, self.cell_width, self.cell_height):
+                    self.go_down_right(obj)
+                else: 
+                    self.go_right(obj)
+            elif num == 1:
+                if self.next_cell_is_empty(pos_x, pos_y, -self.cell_width, self.cell_height):
+                    self.go_down_left(obj)
+                else:
+                    self.go_left(obj)
     
+    def go_right(self, obj):
+        pos_x, pos_y = obj.get_pos()
+
+        if self.next_cell_is_empty(pos_x, pos_y, self.cell_width, 0):
+            self.grid[pos_x, pos_y] = "empty"
+            obj.change_pos_by(self.cell_width, 0)
+            new_pos_x, new_pos_y = obj.get_pos()
+            self.grid[new_pos_x, new_pos_y] = obj
+
+    def go_left(self, obj):
+        pos_x, pos_y = obj.get_pos()
+
+        if self.next_cell_is_empty(pos_x, pos_y, -self.cell_width, 0):
+            self.grid[pos_x, pos_y] = "empty"
+            obj.change_pos_by(-self.cell_width, 0)
+            new_pos_x, new_pos_y = obj.get_pos()
+            self.grid[new_pos_x, new_pos_y] = obj
+
     def go_down_right(self, obj):
         pos_x, pos_y = obj.get_pos()
 
@@ -87,13 +134,6 @@ class Grid():
         else:
             pass
 
-
-    """
-    TEMPORARY CHANGES
-
-    # in x range(self.cell_width) now 1
-    # in y range(self.cell_height) now 1
-    """
 
     def generate_grid(self):
         for x in range(0, self.grid_width, self.cell_width):
