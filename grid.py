@@ -64,6 +64,7 @@ class Grid():
             new_pos_x, new_pos_y = obj.get_pos()
             self.grid[new_pos_x, new_pos_y] = obj
             
+            # This makes sand stay under water, but it is bugged and sand stops acting as sand and instead makes tall sticks
             """elif pos_y + self.cell_height < self.grid_height:
                 if self.grid[pos_x, pos_y + self.cell_height].get_material() == "water":
                     print("should work")
@@ -71,13 +72,52 @@ class Grid():
                     obj.set_pos(pos_x, pos_y + self.cell_height)
                     self.grid[pos_x, pos_y].set_pos(pos_x, pos_y)
                     obj.update_rect()
-            self.grid[pos_x, pos_y].update_rect()"""
+                    self.grid[pos_x, pos_y].update_rect()"""
         else :
             num = random.randrange(0, 2)
             if num == 0:
                 self.go_down_right(obj)
             elif num == 1:
                 self.go_down_left(obj)
+
+
+    # This should make sand stay under water, but it is bugged
+    def sand_go_down_right(self, obj):
+        pos_x, pos_y = obj.get_pos()
+
+        if self.next_cell_is_empty(pos_x, pos_y, self.cell_width, self.cell_height):
+            self.grid[pos_x, pos_y] = "empty"
+            obj.change_pos_by(self.cell_width, self.cell_height)
+            new_pos_x, new_pos_y = obj.get_pos()
+            self.grid[new_pos_x, new_pos_y] = obj
+        elif pos_y + self.cell_height < self.grid_height and pos_x + self.cell_width < self.grid_width:
+                if self.grid[pos_x + self.cell_width, pos_y + self.cell_height].get_material() == "water":
+                    self.grid[pos_x, pos_y] , self.grid[pos_x + self.cell_width, pos_y + self.cell_height] = self.grid[pos_x + self.cell_width, pos_y + self.cell_height], self.grid[pos_x, pos_y]
+                    obj.set_pos(pos_x + self.cell_width, pos_y + self.cell_height)
+                    self.grid[pos_x, pos_y].set_pos(pos_x, pos_y)
+                    obj.update_rect()
+                    self.grid[pos_x, pos_y].update_rect()
+        else:
+            pass
+
+    # This should make sand stay under water, but it is bugged
+    def sand_go_down_left(self, obj):
+        pos_x, pos_y = obj.get_pos()
+
+        if self.next_cell_is_empty(pos_x, pos_y, -self.cell_width, self.cell_height):
+            self.grid[pos_x, pos_y] = "empty"
+            obj.change_pos_by(-self.cell_width, self.cell_height)
+            new_pos_x, new_pos_y = obj.get_pos()
+            self.grid[new_pos_x, new_pos_y] = obj
+        elif pos_y + self.cell_height < self.grid_height and pos_x - self.cell_width > 0:
+                if self.grid[pos_x - self.cell_width, pos_y + self.cell_height].get_material() == "water":
+                    self.grid[pos_x, pos_y] , self.grid[pos_x - self.cell_width, pos_y + self.cell_height] = self.grid[pos_x - self.cell_width, pos_y + self.cell_height], self.grid[pos_x, pos_y]
+                    obj.set_pos(pos_x - self.cell_width, pos_y + self.cell_height)
+                    self.grid[pos_x, pos_y].set_pos(pos_x, pos_y)
+                    obj.update_rect()
+                    self.grid[pos_x, pos_y].update_rect()
+        else:
+            pass
 
 
     def water_go_down(self, obj):
