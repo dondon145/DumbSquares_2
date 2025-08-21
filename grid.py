@@ -34,6 +34,8 @@ class Grid():
                 self.sand_go_down(self.objects_on_screen[i])
             elif self.objects_on_screen[i].get_material() ==  "water":
                 self.water_go_down(self.objects_on_screen[i])
+            elif self.objects_on_screen[i].get_material() == "static stone":
+                self.place_static_stone(self.objects_on_screen[i])
 
     def add_on_screen(self, obj):
         self.objects_on_screen.append(obj)
@@ -133,6 +135,16 @@ class Grid():
             self.grid[new_pos_x, new_pos_y] = obj
         else:
             pass
+    
+    def place_static_stone(self, obj):
+        pos_x, pos_y = obj.get_pos()
+
+        if self.position_is_appropriate(obj) == False:
+            pos_x, pos_y = self.fix_to_correct_position(obj)
+            obj.set_pos(pos_x, pos_y)
+            
+        self.grid[pos_x, pos_y] = obj
+            
 
 
     def generate_grid(self):
