@@ -63,6 +63,15 @@ class Grid():
             obj.change_pos_by(0, self.cell_height)
             new_pos_x, new_pos_y = obj.get_pos()
             self.grid[new_pos_x, new_pos_y] = obj
+            
+            """elif pos_y + self.cell_height < self.grid_height:
+                if self.grid[pos_x, pos_y + self.cell_height].get_material() == "water":
+                    print("should work")
+                    self.grid[pos_x, pos_y] , self.grid[pos_x, pos_y + self.cell_height] = self.grid[pos_x, pos_y + self.cell_height], self.grid[pos_x, pos_y]
+                    obj.set_pos(pos_x, pos_y + self.cell_height)
+                    self.grid[pos_x, pos_y].set_pos(pos_x, pos_y)
+                    obj.update_rect()
+            self.grid[pos_x, pos_y].update_rect()"""
         else :
             num = random.randrange(0, 2)
             if num == 0:
@@ -142,7 +151,7 @@ class Grid():
         if self.position_is_appropriate(obj) == False:
             pos_x, pos_y = self.fix_to_correct_position(obj)
             obj.set_pos(pos_x, pos_y)
-            
+
         self.grid[pos_x, pos_y] = obj
             
 

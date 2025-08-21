@@ -70,6 +70,6 @@ while running:
     moving_group.update()
     moving_group.draw(DISPLAY)
     pygame.display.flip()
-    print(int(clock.get_fps()))
-    print(moving_group)
+    #print(int(clock.get_fps()))
+    #print(moving_group)
     clock.tick(FPS)
