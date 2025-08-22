@@ -76,9 +76,9 @@ class Grid():
         else :
             num = random.randrange(0, 2)
             if num == 0:
-                self.go_down_right(obj)
+                self.sand_go_down_right(obj)
             elif num == 1:
-                self.go_down_left(obj)
+                self.sand_go_down_left(obj)
 
 
     # This should make sand stay under water, but it is bugged

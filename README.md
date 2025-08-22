@@ -2,7 +2,7 @@ This is a sand game. It is not optimized. I won't add any features anymore to th
 I don't plan to fix anything bugged in here either.
 
 It currently has: 
-- sand
+- sand (it can sink)
 - water
 - static stone
 
@@ -13,7 +13,6 @@ To do:
 - smoke
 
 To-Do (Recommended features)
-- Make sand sink in water
 - Make water and sand react to a falling stone 
 
 Performance:
