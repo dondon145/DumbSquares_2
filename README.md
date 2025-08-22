@@ -24,15 +24,15 @@ Performance:
 - 7-10 fps (40,000 particles)
 
 (Plugged-in) 
-- 55-60 fps (6,000)
-- 45-50 fps(9,000)
-- 40-45 fps (10,000)
-- 30 fps (15,000)
-- 20 fps (25,000)
-- 15 fps (32,000)
-- 10 fps (50,000)
-- 7 fps (71,000)
-- 6 fps (80,000)
+- 55-60 fps (6,000 particles)
+- 45-50 fps(9,000 particles)
+- 40-45 fps (10,000 particles)
+- 30 fps (15,000 particles)
+- 20 fps (25,000 particles)
+- 15 fps (32,000 particles)
+- 10 fps (50,000 particles)
+- 7 fps (71,000 particles)
+- 6 fps (80,000 particles)
 - it takes 30-40 minutes to fill out the window 800x800
 
 My specs 
